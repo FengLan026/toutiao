@@ -28,14 +28,12 @@ const mutations = {
 const actions = {
   async login(context, data) {
     const result = await login(data)
-    console.log(result)
-    if (result.status == '201') {
-      context.commit('setToken', result.data.data.token)
-    }
+    // if (result.status == '201') {
+    context.commit('setToken', result.data.data.token)
+    // }
   },
   async getUserInfo(context) {
     const result = await getUserInfo()
-    console.log(result)
     if (result.status == '200') {
       context.commit('setUserInfo', result.data)
     }

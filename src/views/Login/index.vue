@@ -70,7 +70,7 @@ export default {
     };
     return {
       user: {
-        mobile: "13988888888",
+        mobile: "18488888888",
         code: "246810",
       },
       loginRules: {

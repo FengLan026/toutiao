@@ -1,3 +1,6 @@
+/***
+ * cookie
+ */
 import Cookies from 'js-cookie'
 
 const TokenKey = 'bufan-toutiao-token' // 设置一个独一无二的key

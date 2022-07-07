@@ -4,7 +4,7 @@ module.exports = defineConfig({
   lintOnSave: false,
   devServer: {
     port: 8888,
-    //   // 代理配置
+    // 代理配置
     proxy: {
       '/v1_0': {
         target: 'http://toutiao.itheima.net',
