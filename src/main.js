@@ -11,7 +11,8 @@ import './styles/index.less'
 
 //动态设置 rem基准值
 import "amfe-flexible"
-
+// 路由守卫
+import '@/permission'
 // 注册全局组件
 import Components from "@/components"
 

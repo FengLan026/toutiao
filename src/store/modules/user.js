@@ -1,5 +1,5 @@
 import { getToken, setToken, removeToken } from "@/utils/auth"
-import { login, getUserInfo } from "@/api/user"
+import { login, getUserInfo, getPersonInfo } from "@/api/user"
 import { resetRouter } from "@/router"
 const state = {
   token: getToken(),
@@ -20,6 +20,7 @@ const mutations = {
   setUserInfo(state, userInfo) {
     state.userInfo = userInfo
   },
+  // 删除用户信息
   reomveUserInfo(state) {
     state.userInfo = {}
   }
@@ -28,15 +29,12 @@ const mutations = {
 const actions = {
   async login(context, data) {
     const result = await login(data)
-    // if (result.status == '201') {
-    context.commit('setToken', result.data.data.token)
-    // }
+    context.commit('setToken', result.token)
   },
   async getUserInfo(context) {
     const result = await getUserInfo()
-    if (result.status == '200') {
-      context.commit('setUserInfo', result.data)
-    }
+    const baseInfo = await getPersonInfo()
+    context.commit('setUserInfo', { ...result, ...baseInfo })
     return result
   },
   // 登出操作

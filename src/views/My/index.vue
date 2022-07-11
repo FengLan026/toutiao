@@ -8,52 +8,60 @@
             round
             width="75px"
             height="75px"
-            src="https://img01.yzcdn.cn/vant/cat.jpeg"
+            :src="userInfo.photo"
           />
-          <span class="user-name">未来科技</span>
+          <span class="user-name">{{ userInfo.name }}</span>
         </van-col>
         <van-col span="6">
-          <van-button class="edit-btn" round type="default"
-            >编辑资料</van-button
-          >
+          <van-button class="edit-btn" round type="default" to="/edit">
+            编辑资料
+          </van-button>
         </van-col>
       </van-row>
 
       <van-tabbar class="user-info-bar" :fixed="false" :route="true">
         <van-tabbar-item>
-          <p class="count">8</p>
+          <p class="count">{{ userInfo.art_count }}</p>
           <p class="text">发布</p>
         </van-tabbar-item>
         <van-tabbar-item>
-          <p class="count">1</p>
+          <p class="count">{{ userInfo.fans_count }}</p>
           <p class="text">关注</p>
         </van-tabbar-item>
         <van-tabbar-item>
-          <p class="count">999</p>
+          <p class="count">{{ userInfo.follow_count }}</p>
           <p class="text">粉丝</p>
         </van-tabbar-item>
         <van-tabbar-item>
-          <p class="count">999</p>
+          <p class="count">{{ userInfo.like_count }}</p>
           <p class="text">获赞</p>
         </van-tabbar-item>
       </van-tabbar>
     </div>
     <div class="container">
       <van-grid class="record-bar" clickable :column-num="2">
-        <van-grid-item class="record-bar-item" text="收藏" to="/">
+        <van-grid-item
+          class="record-bar-item"
+          text="收藏"
+          :to="{ path: '/info/collections', query: { active: 'collections' } }"
+        >
           <template v-slot:icon>
             <i class="iconfont icon-shoucang"> </i>
           </template>
         </van-grid-item>
-        <van-grid-item class="record-bar-item" text="历史">
+        <van-grid-item
+          class="record-bar-item"
+          text="历史"
+          :to="{ path: '/info/history', query: { active: 'history' } }"
+        >
           <template v-slot:icon>
-            <i class="iconfont icon-lishi"> </i>
+            <i class="iconfont icon-lishi"></i>
           </template>
         </van-grid-item>
       </van-grid>
       <van-cell class="list-item" title="消息通知" is-link />
       <van-cell class="list-item" title="人工智障" is-link />
-      <van-button type="primary" block class="loginout-btn">
+      <van-button type="primary" block class="logout-btn" @click="logout">
         退出登录
       </van-button>
     </div>
@@ -62,24 +70,18 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { getUserInfo } from "@/api/user";
-import { getChannelsList } from "@/api/channels";
+import { createNamespacedHelpers } from "vuex";
+const { mapState } = createNamespacedHelpers("user");
 export default {
-  data() {
-    return {};
-  },
-  created() {
-    this.getUserInfo();
-  },
   methods: {
-    async getUserInfo() {
-      const res = await getUserInfo();
-      console.log(res);
+    // 退出登录
+    async logout() {
+      await this.$store.dispatch("user/logout");
+      this.$router.push(`/login`); // 跳转登录页
     },
   },
   computed: {
-    ...mapGetters(["token"]),
+    ...mapState(["userInfo"]),
   },
 };
 </script>
@@ -115,6 +117,7 @@ export default {
       padding: 0 5px;
       font-size: 10px;
       line-height: 17px;
+      vertical-align: middle;
     }
   }
   .user-info-bar {
@@ -180,7 +183,7 @@ export default {
     font-size: 15px;
     color: #333333;
   }
-  .loginout-btn {
+  .logout-btn {
     height: 52px;
     margin-top: 5px;
     font-size: 15px;

@@ -1,11 +1,6 @@
 <template>
   <div>
-    <van-tabbar
-      class="footer-bar"
-      :route="true"
-      :fixed="true"
-      :placeholder="true"
-    >
+    <van-tabbar class="footer-bar" route fixed placeholder>
       <van-tabbar-item to="/index">
         <template v-slot:icon>
           <i class="iconfont icon-shouye"></i>
