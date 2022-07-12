@@ -34,6 +34,7 @@
         close-icon-position="top-left"
         v-model="isShowPopup"
         position="right"
+        @close="setUserChannels"
         :style="{ width: '100%', height: '100%' }"
       >
         <div class="my-channels">
@@ -123,10 +124,13 @@ export default {
       this.articlesList = res.results;
     },
     async setUserChannels() {
-      console.log(this.myChannelsList);
-      let data = {};
+      let data = [];
       for (let i = 0; i < this.myChannelsList.length; i++) {
-        data[id];
+        const el = this.myChannelsList[i];
+        data.push({
+          id: parseInt(el.id),
+          seq: parseInt(i),
+        });
       }
       await setUserChannels(data);
     },

@@ -8,12 +8,12 @@ export function getChannelsList() {
 }
 
 // 设置用户的频道
-export function setUserChannels(channels) {
+export function setUserChannels(data) {
   return request({
     url: '/v1_0/channels',
     method: 'put',
     data: {
-      channels
+      channels: data
     }
   })
 }

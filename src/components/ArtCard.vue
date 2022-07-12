@@ -1,10 +1,10 @@
 <template>
   <div class="art-item" @click="getArticlesDetail(item.art_id)">
-    <h3 class="art-title" v-if="item.cover.type != 1">
+    <h3 class="art-title van-multi-ellipsis--l2" v-if="item.cover.type != 1">
       {{ item.title }}
     </h3>
     <div class="art-img-type-1" v-if="item.cover.type == 1">
-      <h3 class="art-title">{{ item.title }}</h3>
+      <h3 class="art-title van-multi-ellipsis--l2">{{ item.title }}</h3>
       <img class="art-cover" :src="item.cover.images[0]" alt="" />
     </div>
     <div class="art-img-type-3" v-else-if="item.cover.type == 3">
